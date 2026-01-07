@@ -99,6 +99,7 @@ public class PlayerShooter : MonoBehaviour
     void Shoot()
     {
         // Tạo đạn
+        AudioManagerShooter.Instance.PlayShoot();
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         

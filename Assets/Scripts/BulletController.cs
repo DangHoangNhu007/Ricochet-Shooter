@@ -18,6 +18,7 @@ public class BulletController : MonoBehaviour
             bounces++;
             // Hiệu ứng nảy nhẹ (Squash) cho viên đạn thêm sinh động
             transform.DOPunchScale(Vector3.one * 0.2f, 0.1f);
+            AudioManagerShooter.Instance.PlayBounce();
 
             // Nếu nảy quá nhiều thì hủy đạn
             if (bounces > maxBounces)
@@ -36,6 +37,7 @@ public class BulletController : MonoBehaviour
 
     void KillEnemy(GameObject enemy)
     {
+        AudioManagerShooter.Instance.PlayExplode();
         // Tắt physics của đạn để nó dừng lại ngay tại chỗ va chạm
         GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
@@ -58,6 +60,7 @@ public class BulletController : MonoBehaviour
         if (shatter != null)
         {
             shatter.Explode(); // BÙM! Vỡ tan tành
+            Camera.main.transform.DOShakePosition(0.3f, 0.5f, 10, 90);
         }
         else
         {
